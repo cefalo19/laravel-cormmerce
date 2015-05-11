@@ -15,6 +15,11 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::group(['prefix' => 'admin'], function() {
+   Route::get('categories', 'AdminCategoriesController@index');
+   Route::get('products',   'AdminProductsController@index');
+});
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
