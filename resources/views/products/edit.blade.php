@@ -14,7 +14,7 @@
             </ul>
             @endif
 
-            {!! Form::open(['url' => "products/$product->id/update", 'method' => 'put']) !!}
+            {!! Form::open(['url' => "admin/products/$product->id/update", 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', $product->name, ['class' => 'form-control']) !!}

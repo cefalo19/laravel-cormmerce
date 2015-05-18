@@ -14,7 +14,7 @@
             </ul>
             @endif
 
-            {!! Form::open(['url' => 'products/store']) !!}
+            {!! Form::open(['url' => 'admin/products/store']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}

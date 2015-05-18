@@ -14,7 +14,7 @@
             </ul>
             @endif
 
-            {!! Form::open(['url' => "categories/$category->id/update", 'method' => 'put']) !!}
+            {!! Form::open(['url' => "admin/categories/$category->id/update", 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', $category->name, ['class' => 'form-control']) !!}
