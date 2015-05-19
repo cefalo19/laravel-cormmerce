@@ -50,7 +50,7 @@ class ProductsController extends Controller {
     {
         $request['featured']  = $request->get('featured');
         $request['recommend'] = $request->get('recommend');
-        
+
         $this->product->find($id)->update($request->all());
 
         return redirect()->route('products');
