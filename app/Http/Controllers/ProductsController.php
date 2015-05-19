@@ -48,6 +48,9 @@ class ProductsController extends Controller {
 
     public function update(ProductRequest $request, $id)
     {
+        $request['featured']  = $request->get('featured');
+        $request['recommend'] = $request->get('recommend');
+        
         $this->product->find($id)->update($request->all());
 
         return redirect()->route('products');

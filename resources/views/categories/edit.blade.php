@@ -14,14 +14,14 @@
             </ul>
             @endif
 
-            {!! Form::open(['url' => "admin/categories/$category->id/update", 'method' => 'put']) !!}
+            {!! Form::open(['route' => ['categories.update', $category->id], 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', $category->name, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('description', 'Description') !!}
-                    {!! Form::text('description', $category->description, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('description', $category->description, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::submit('Edit', ['class' => 'btn btn-primary']) !!}

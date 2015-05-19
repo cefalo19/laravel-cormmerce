@@ -14,14 +14,14 @@
             </ul>
             @endif
 
-            {!! Form::open(['url' => "admin/products/$product->id/update", 'method' => 'put']) !!}
+            {!! Form::open(['route' => ['products.update', $product->id], 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Name') !!}
                     {!! Form::text('name', $product->name, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('description', 'Description') !!}
-                    {!! Form::text('description', $product->description, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('description', $product->description, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('price', 'Price') !!}

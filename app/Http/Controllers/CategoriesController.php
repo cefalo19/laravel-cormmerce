@@ -48,6 +48,8 @@ class CategoriesController extends Controller {
 
     public function update(CategoryRequest $request, $id)
     {
+        dd($request->all());die;
+
         $this->category->find($id)->update($request->all());
 
         return redirect()->route('categories');
