@@ -20,7 +20,7 @@ class CategoriesController extends Controller {
 
     public function index()
     {
-        $categories = $this->category->all();
+        $categories = $this->category->paginate(10);
 
         return view('categories.index')->with(['categories' => $categories]);
     }
