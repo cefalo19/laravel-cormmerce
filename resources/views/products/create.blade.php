@@ -50,6 +50,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
+                    <a href="{{ route('products') }}" class="btn btn-default">Voltar</a>
                 </div>
             {!! Form::close() !!}
         </div>
