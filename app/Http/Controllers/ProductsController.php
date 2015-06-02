@@ -64,7 +64,18 @@ class ProductsController extends Controller {
 
     public function destroy($id)
     {
-        $this->product->find($id)->delete();
+        $product = $this->product->find($id);
+
+        $images = $product->images;
+
+        foreach ($images as $image) {
+            if (Storage::disk('public_local')->exists($image->id.'.'.$image->extension))
+                Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+
+            $image->delete();
+        }
+
+        $product->delete();
 
         return redirect()->route('products');
     }
@@ -99,7 +110,7 @@ class ProductsController extends Controller {
     {
         $image = $productImage->find($id);
 
-        if (file_exists(public_path().'/uploads/'.$image->id.'.'.$image->extension))
+        if (Storage::disk('public_local')->exists($image->id.'.'.$image->extension))
             Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
 
         $product = $image->product;
