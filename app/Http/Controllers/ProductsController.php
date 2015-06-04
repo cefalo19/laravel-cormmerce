@@ -3,7 +3,9 @@
 use CodeCommerce\Category;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Product;
-Use CodeCommerce\ProductImage;
+use CodeCommerce\ProductImage;
+use CodeCommerce\Http\Requests\ProductRequest;
+use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -15,9 +17,16 @@ class ProductsController extends Controller {
      */
     private $product;
 
-    public function __construct(Product $product)
+    /**
+     * @var \CodeCommerce\Tag
+     */
+    private $tag;
+
+    public function __construct(Product $product, Tag $tag)
     {
         $this->product = $product;
+        $this->tag     = $tag;
+
     }
 
     public function index()
@@ -34,11 +43,15 @@ class ProductsController extends Controller {
         return view('products.create')->with(['categories' => $categories]);
     }
 
-    public function store(ProductRequest $request)
+    public function store(Requests\ProductRequest $request)
     {
         $input = $request->all();
 
-        $this->product->create($input);
+        $tags = $request->get('tags');
+
+        $product = $this->product->create($input);
+
+        $this->saveTags($product, $tags);
 
         return redirect()->route('products');
     }
@@ -57,7 +70,12 @@ class ProductsController extends Controller {
         $request['featured']  = $request->get('featured');
         $request['recommend'] = $request->get('recommend');
 
-        $this->product->find($id)->update($request->all());
+        $tags = $request->get('tags');
+
+        $product = $this->product->find($id);
+        $product->save($request->all());
+
+        $this->saveTags($product, $tags);
 
         return redirect()->route('products');
     }
@@ -117,6 +135,29 @@ class ProductsController extends Controller {
         $image->delete();
 
         return redirect()->route('products.images', ['id' => $product->id]);
+    }
+
+    private function saveTags(Product $product, $tags = '')
+    {
+        $syncTags = [];
+
+        if ( !empty($tags) ) {
+
+            $tags = explode(', ', $tags);
+
+            foreach ($tags as $tag) {
+                $foundTag = $this->tag->where('name', 'like', "%$tag%")->first();
+
+                if ($foundTag) {
+                    $syncTags[] = (int) $foundTag->id;
+                } else {
+                    $createdTag = $this->tag->create(['name' => $tag]);
+                    $syncTags[] = $createdTag->id;
+                }
+            }
+        }
+
+        $product->tags()->sync($syncTags);
     }
 
 }

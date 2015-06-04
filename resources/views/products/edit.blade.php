@@ -49,6 +49,10 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!! Form::label('tags', 'Tags') !!}
+                    {!! Form::textarea('tags', $product->getTagListAtrribute(), ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
                     {!! Form::submit('Edit', ['class' => 'btn btn-primary']) !!}
                     <a href="{{ route('products') }}" class="btn btn-default">Voltar</a>
                 </div>
