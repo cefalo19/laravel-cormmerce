@@ -67,8 +67,8 @@ class ProductsController extends Controller {
 
     public function update(ProductRequest $request, $id)
     {
-        $request['featured']  = $request->get('featured');
-        $request['recommend'] = $request->get('recommend');
+        $request['featured']  = $request->get('featured') ?: '0';
+        $request['recommend'] = $request->get('recommend') ?: '0';
 
         $tags = $request->get('tags');
 

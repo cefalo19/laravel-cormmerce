@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'StoreController@index');
+Route::get('store/category/{id}', ['as' => 'store.category', 'uses' => 'StoreController@category']);
 
 Route::get('home', 'HomeController@index');
 
