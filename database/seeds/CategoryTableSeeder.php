@@ -8,8 +8,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use CodeCommerce\Category;
-use Faker\Factory as Faker;
 
 class CategoryTableSeeder extends Seeder {
 
@@ -17,14 +15,7 @@ class CategoryTableSeeder extends Seeder {
     {
         DB::table('categories')->truncate();
 
-        $faker = Faker::create('pt_BR');
-
-        for ($i = 0; $i < 5; $i++) {
-            Category::create([
-                'name'        => $faker->word,
-                'description' => $faker->sentence()
-            ]);
-        }
+        factory('CodeCommerce\Category', 5)->create();
     }
 
 } 
