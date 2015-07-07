@@ -7,7 +7,7 @@
 @section('content')
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--products_items-->
-            <h2 class="title text-center">Categoria: {{ $category->name  }}</h2>
+            <h2 class="title text-center">Tag: {{ $tag->name  }}</h2>
 
             @include('partials.product', ['products' => $products])
         </div><!--products_items-->
