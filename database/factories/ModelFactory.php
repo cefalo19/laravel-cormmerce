@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define('CodeCommerce\Category', function ($faker) {
+$factory->define('CodeCommerce\User', function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -31,7 +31,7 @@ $factory->define('CodeCommerce\Product', function ($faker) {
     ];
 });
 
-$factory->define('CodeCommerce\User', function ($faker) {
+$factory->define('CodeCommerce\Category', function ($faker) {
     return [
         'name'        => $faker->word,
         'description' => $faker->sentence()
