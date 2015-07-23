@@ -29,5 +29,7 @@ class CheckoutController extends Controller
                 $order->items()->create(['product_id' => $k, 'price' => $item['price'], 'qtd' => $item['qtd']]);
             }
         }
+
+        return view('checkout.place', compact('order'));
     }
 }
