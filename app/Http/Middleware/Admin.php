@@ -32,15 +32,12 @@ class Admin {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->check())
+		if ($this->auth->check() && $this->auth->user()->isAdmin())
 		{
-			if (!$this->auth->user()->isAdmin())
-			{
-				return response('Unauthorized.', 401);
-			}
+            return $next($request);
 		}
 
-		return $next($request);
+        return response('Unauthorized.', 401);
 	}
 
 }

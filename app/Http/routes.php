@@ -23,13 +23,21 @@ Route::group(['prefix' => 'cart'], function() {
     Route::get('{id}/quantity/{qtd}', ['as' => 'cart.quantity', 'uses' => 'CartController@quantity']);
 });
 
-Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place', 'middleware' => 'auth']);
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+    Route::get('account/orders', ['as' => 'account.orders', 'uses' => 'AccountController@orders']);
+});
+
 
 Route::get('home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
    Route::get('categories', ['as' => 'category', 'uses' => 'Admin\AdminCategoriesController@index']);
    Route::get('products',   ['as' => 'product',  'uses' => 'Admin\AdminProductsController@index']);
+
+    Route::resource('statuses', 'StatusController');
+
+    Route::resource('orders', 'OrderController', ['only' => ['index', 'edit', 'update']]);
 
     /* Categories routes */
     Route::group(['prefix' => 'categories'], function() {
